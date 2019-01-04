@@ -1,13 +1,14 @@
 package com.example.mongoexample;
 
-import com.mongodb.Cursor;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import static com.mongodb.client.model.Filters.regex;
 
@@ -18,7 +19,7 @@ public class SearchController {
     private Start start;
 
     @ResponseBody
-    @GetMapping("/search/{vorname}")
+    @GetMapping(value = "/search/{vorname}", produces = "application/json")
     public String getSpieler(@PathVariable("vorname") String vorname){
         MongoDatabase database = start.getDatabase();
         MongoCollection<Document> collection = database.getCollection("spielers");
