@@ -1,4 +1,4 @@
-package com.example.mongoexample;
+package com.example.mongoexample.model;
 
 public class Player {
 

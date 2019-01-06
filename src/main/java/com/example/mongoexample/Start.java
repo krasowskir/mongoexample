@@ -20,10 +20,11 @@ public class Start {
     private static int PORT = 27017;
     private static String USERNAME = "richard";
     private static String PASSWORD = "test123";
-    private static String DATABASE = "searchdb";
-    private static String COLLECTION = "spielers";
+    private static String DATABASE = "richardsrestaurants";
+    private static String COLLECTION = "restaurants";
 
     private MongoDatabase database;
+    private MongoCollection<Document> collection;
 
     private static Logger LOGGER = LoggerFactory.getLogger(Start.class);
 
@@ -38,16 +39,14 @@ public class Start {
                     .build());
             database = client.getDatabase(DATABASE);
 
-            MongoCollection<Document> collection = database.getCollection(COLLECTION);
-            MongoCursor<Document> cursor = collection.find(regex("vorname","^Ric*", "i")).iterator();
+            collection = database.getCollection(COLLECTION);
+            /*MongoCursor<Document> cursor = collection.find(regex("vorname","^Ric*", "i")).iterator();
             while (cursor.hasNext()){
                 Document doc = cursor.next();
                 System.out.println("======");
                 System.out.println("doc: " + doc.toJson());
             }
-            cursor.close();
-
-
+            cursor.close();*/
 
             LOGGER.info("erfolgreich mit {HOST} auf port: {PORT} verbunden");
         } catch (Exception e) {
@@ -57,5 +56,9 @@ public class Start {
 
     public MongoDatabase getDatabase(){
         return this.database;
+    }
+
+    public MongoCollection getCollection(){
+        return this.collection;
     }
 }
